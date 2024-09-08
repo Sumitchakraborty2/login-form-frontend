@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <main>
+        <div class="profile-box">
+            <h2>Profile Information</h2>
+            <div id="profile-info">
+                <!-- Profile information will be displayed here -->
+            </div>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem("Authorization");
+            if (!token) {
+                alert("No token found. Redirecting to login.");
+                window.location.href = "index.html"; // Redirect to login page
+                return;
+            }
+
+            try {
+                const response = await axios.get("http://localhost:8080/me", {
+                    headers: {
+                        Authorization: token
+                    }
+                });
+
+                const profileInfo = document.getElementById('profile-info');
+                profileInfo.innerHTML = `
+                    <p><strong>Username:</strong> ${response.data.username}</p>
+                    <p><strong>Password:</strong> ${response.data.password}</p>
+                `;
+            } catch (err) {
+                alert("Error: " + (err.response?.data?.message || err.message));
+                console.error("Error:", err.response?.data?.message || err.message);
+                window.location.href = "index.html"; // Redirect to login page
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem("Authorization");
+            window.location.href = "index.html"; // Redirect to login page
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,76 @@
+/* style.css */
+
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1f1f1f; /* Dark background similar to the login box */
+    color: #fff; /* White text color for better readability */
+}
+
+/* Main Container */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Profile Box Styling */
+.profile-box {
+    background: rgba(24, 20, 20, 0.987); /* Same background as login box */
+    border-radius: 8px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6); /* Same shadow as login box */
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-box h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #fff; /* White text for heading */
+}
+
+.profile-box p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #bdb8b8; /* Lighter text color for paragraphs */
+}
+
+.profile-box button {
+    background-color: #03f40f; /* Green background similar to login box hover */
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.profile-box button:hover {
+    background-color: #028a02; /* Darker green for hover effect */
+}
+
+/* Top Right Links Styling */
+.top-right-links {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.top-right-links a {
+    color: #03f40f; /* Green color to match the login box button */
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.top-right-links a:hover {
+    text-decoration: underline;
+}

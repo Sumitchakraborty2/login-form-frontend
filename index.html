@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+
+    <main>
+      <div class="login-box">
+        <form>
+          <div class="user-box">
+            <input type="text" name="" required="" id="name" />
+            <label>Username</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="" required="" id="password" />
+            <label>Password</label>
+          </div>
+          <center>
+            <a href="#" id="submit-signUp-btn" class="submit-btn">
+              SIGN UP
+              <span></span>
+            </a>
+          </center>
+        </form>
+      </div>
+      <center>
+        <a href="#" id="submit-signIn-btn" class="outside-btn">
+          SIGN IN
+          <span></span>
+        </a>
+      </center>
+    </main>
+    <script>
+      const usernameInput = document.getElementById("name");
+      const passwordInput = document.getElementById("password");
+      const signUp = document.getElementById("submit-signUp-btn");
+      const signIn = document.getElementById("submit-signIn-btn");
+      let link = "http://localhost:8080/sign-up";
+
+      signUp.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default anchor click behavior
+
+        const username = usernameInput.value; // Get value from input field
+        const password = passwordInput.value; // Get value from input field
+
+        if (signUp.textContent.trim() === "SIGN IN") {
+          link = "http://localhost:8080/sign-in";
+        } else {
+          link = "http://localhost:8080/sign-up";
+        }
+
+        log(link, username, password);
+      });
+
+      signIn.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default anchor click behavior
+
+        if (signIn.textContent.trim() === "SIGN UP") {
+          signIn.textContent = "SIGN IN";
+          signUp.textContent = "SIGN UP";
+        } else {
+          signIn.textContent = "SIGN UP";
+          signUp.textContent = "SIGN IN";
+        }
+      });
+
+      async function log(link, username, password) {
+        try {
+          const response = await axios.post(link, {
+            username: username, // Send values
+            password: password,
+          });
+
+          if (link === "http://localhost:8080/sign-in") {
+            const token = response.data.token; // Extract token
+            alert("you are logged in");
+
+            // creating a new ui for profile view;
+            const div = document.createElement("div");
+            const a = document.createElement("a");
+            div.setAttribute('class', 'top-right-links');
+            a.setAttribute('href', '#');
+            a.setAttribute('id', 'my-profile');
+            a.innerHTML = "My Profile";
+            div.appendChild(a);
+            document.querySelector("main").appendChild(div);
+            // You can store the token in localStorage or sessionStorage
+            localStorage.setItem("Authorization", token);
+          } else {
+            const message = response.data.message || "Success"; // Ensure fallback message
+            alert(message);
+          }
+
+          usernameInput.value = ""; // Reset input fields
+          passwordInput.value = "";
+        } catch (err) {
+          alert("Error: " + (err.response?.data?.message || err.message));
+          console.error("Error:", err.response?.data?.message || err.message);
+        }
+
+        document.getElementById("my-profile").addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = "profile.html";
+          return;
+        })
+      }
+    </script>
+  </body>
+</html>

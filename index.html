@@ -40,7 +40,7 @@
       const passwordInput = document.getElementById("password");
       const signUp = document.getElementById("submit-signUp-btn");
       const signIn = document.getElementById("submit-signIn-btn");
-      let link = "http://localhost:8080/sign-up";
+      let link = "https://login-form-backend.vercel.app/sign-up";
 
       signUp.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent default anchor click behavior
@@ -49,9 +49,9 @@
         const password = passwordInput.value; // Get value from input field
 
         if (signUp.textContent.trim() === "SIGN IN") {
-          link = "http://localhost:8080/sign-in";
+          link = "https://login-form-backend.vercel.app/sign-in";
         } else {
-          link = "http://localhost:8080/sign-up";
+          link = "https://login-form-backend.vercel.app/sign-up";
         }
 
         log(link, username, password);
@@ -76,7 +76,7 @@
             password: password,
           });
 
-          if (link === "http://localhost:8080/sign-in") {
+          if (link === "https://login-form-backend.vercel.app/sign-in") {
             const token = response.data.token; // Extract token
             alert("you are logged in");
 

@@ -89,14 +89,15 @@
             a.innerHTML = "My Profile";
             div.appendChild(a);
             document.querySelector("main").appendChild(div);
+            // You can store the token in localStorage or sessionStorage
+            localStorage.setItem("Authorization", token);
 
             a.addEventListener('click', (e) => {
                 e.preventDefault();
                 window.location.href = "profile.html";
             });
 
-            // You can store the token in localStorage or sessionStorage
-            localStorage.setItem("Authorization", token);
+
           } else {
             const message = response.data.message || "Success"; // Ensure fallback message
             alert(message);
